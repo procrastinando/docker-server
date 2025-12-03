@@ -12,11 +12,12 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Install dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY requirements-mindbloat.txt .
+RUN pip install --no-cache-dir -r requirements-mindbloat.txt
 
-# Copy all files from current directory to /app
-COPY . .
+# Copy files to /app
+COPY app.py .
+COPY sync_service.py .
 
 # Expose the Flask port
 EXPOSE 5000
