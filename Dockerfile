@@ -12,8 +12,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Install dependencies
-COPY requirements-mindbloat.txt .
-RUN pip install --no-cache-dir -r requirements-mindbloat.txt
+COPY requirements.txt .
 
 # Copy files to /app
 COPY app.py .
@@ -23,4 +22,4 @@ COPY sync_service.py .
 EXPOSE 5000
 
 # Run sync_service in background (&) and app.py in foreground
-CMD ["sh", "-c", "python sync_service.py & python app.py"]
+CMD ["sh", "-c", "pip install --no-cache-dir -r requirements.txt && python sync_service.py & python app.py"]
